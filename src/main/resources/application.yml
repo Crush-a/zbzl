@@ -1,0 +1,33 @@
+spring:
+  http:
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      max-file-size: 100MB
+      max-request-size: 100MB
+  application:
+    name: DBSERVICE
+  datasource:
+    druid:
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@localhost:1521/orcl
+      username: mysql
+      password: mysql
+      initialSize: 10  
+      maxActive: 10
+      maxWait: 1000
+      minIdle: 10
+      validationQuery: select 1 from dual
+
+  resources:
+    static-locations: classpath:/static,classpath:/resources,classpath:/META-INF/resources,file:C:\\Temp_DXWEB\\
+
+mybatis:
+  type-aliases-package: com.zbzl.entity
+  mapper-locations: classpath:mapper/*.xml
+
+server:
+  port: 8081
+logging:
+  level:
+       com.zbzl：DEBUG

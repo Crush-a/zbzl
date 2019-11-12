@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zbzl.dao.SysDictMapper" >
+  <resultMap id="BaseResultMap" type="com.zbzl.entity.SysDict" >
+    <id column="DICT_ID" property="dictId" jdbcType="VARCHAR" />
+    <result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+    <result column="DICT_CODE" property="dictCode" jdbcType="VARCHAR" />
+    <result column="DICT_VALID" property="dictValid" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="DICT_TS" property="dictTs" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DICT_ID, DICT_NAME, DICT_CODE, DICT_VALID, REMARK,DICT_TS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_DICT
+    where DICT_ID = #{dictId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_DICT
+    where DICT_ID = #{dictId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zbzl.entity.SysDict" >
+    insert into SYS_DICT (DICT_ID, DICT_NAME, DICT_CODE, 
+      DICT_VALID, REMARK,DICT_TS)
+    values (#{dictId,jdbcType=VARCHAR}, #{dictName,jdbcType=VARCHAR}, #{dictCode,jdbcType=VARCHAR}, 
+      #{dictValid,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{dictTs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zbzl.entity.SysDict" >
+    insert into SYS_DICT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dictId != null" >
+        DICT_ID,
+      </if>
+      <if test="dictName != null" >
+        DICT_NAME,
+      </if>
+      <if test="dictCode != null" >
+        DICT_CODE,
+      </if>
+      <if test="dictValid != null" >
+        DICT_VALID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="dictTs != null" >
+        DICT_TS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dictId != null" >
+        #{dictId,jdbcType=VARCHAR},
+      </if>
+      <if test="dictName != null" >
+        #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="dictCode != null" >
+        #{dictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictValid != null" >
+        #{dictValid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dictTs != null" >
+        #{dictTs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zbzl.entity.SysDict" >
+    update SYS_DICT
+    <set >
+      <if test="dictName != null" >
+        DICT_NAME = #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="dictCode != null" >
+        DICT_CODE = #{dictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictValid != null" >
+        DICT_VALID = #{dictValid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dictTs != null" >
+        DICT_TS = #{dictTs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DICT_ID = #{dictId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zbzl.entity.SysDict" >
+    update SYS_DICT
+    set DICT_NAME = #{dictName,jdbcType=VARCHAR},
+      DICT_CODE = #{dictCode,jdbcType=VARCHAR},
+      DICT_VALID = #{dictValid,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+      DICT_TS = #{dictTs,jdbcType=VARCHAR}
+    where DICT_ID = #{dictId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectByExample" parameterType="com.zbzl.entity.PageQuery" resultMap="BaseResultMap">
+    select * from(select C.*,ROWNUM RN FROM(
+    select
+    <include refid="Base_Column_List" />
+    from sys_dict
+    where 1=1 ${exSql}) C WHERE ROWNUM &lt;= (#{page})*(#{row})) WHERE RN>(#{page}-1)*(#{row})
+  </select>
+  <select id="selectCountByExample" parameterType="com.zbzl.entity.PageQuery" resultType="java.lang.Integer">
+    select
+    count(0)
+    from sys_dict
+    where 1=1 ${exSql}
+  </select>
+
+  <delete id="deleteMoreDistrict" parameterType="com.zbzl.entity.PageQuery">
+    DELETE FROM sys_dict WHERE dict_id IN ${exSql}
+  </delete>
+
+  <select id="getMaxId" resultType="java.lang.Integer">
+    select nvl(max(cast(dict_id as INTEGER)),0) from sys_dict
+  </select>
+
+  <select id="getDictName" parameterType="com.zbzl.entity.SysDict" resultMap="BaseResultMap">
+    select * from sys_dict where dict_ts=#{dictTs,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getDictById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from sys_dict where  DICT_ID = #{dictId,jdbcType=VARCHAR}
+  </select>
+
+
+
+</mapper>

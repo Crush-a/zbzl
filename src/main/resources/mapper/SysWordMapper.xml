@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zbzl.dao.SysWordMapper" >
+  <resultMap id="BaseResultMap" type="com.zbzl.entity.SysWord" >
+    <id column="WORD_ID" property="wordId" jdbcType="VARCHAR" />
+    <result column="WORD_CODE" property="wordCode" jdbcType="VARCHAR" />
+    <result column="WORD_NAME" property="wordName" jdbcType="VARCHAR" />
+    <result column="WORD_CLASSIFY" property="wordClassify" jdbcType="VARCHAR" />
+    <result column="WORD_LABEL" property="wordLabel" jdbcType="VARCHAR" />
+    <result column="WORD_TIME" property="wordTime" jdbcType="VARCHAR" />
+    <result column="WORD_HERF" property="wordHerf" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="WORD_ORG" property="wordOrg" jdbcType="VARCHAR" />
+    <result column="WORD_USER" property="wordUser" jdbcType="VARCHAR" />
+    <result column="WORD_MJ" property="wordMj" jdbcType="VARCHAR" />
+    <result column="WORD_STAT" property="wordStat" jdbcType="VARCHAR" />
+    <result column="WORD_END" property="wordEnd" jdbcType="VARCHAR" />
+    <result column="WORD_CLASSIFYNAME" property="wordClassifyName" jdbcType="VARCHAR" />
+    <result column="WORD_LABELNAME" property="wordLabelName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    WORD_ID, WORD_CODE, WORD_NAME, WORD_CLASSIFY, WORD_LABEL, WORD_TIME, WORD_HERF, REMARK, 
+    WORD_ORG, WORD_USER, WORD_MJ,WORD_STAT,WORD_END,WORD_CLASSIFYNAME,WORD_LABELNAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_WORD
+    where WORD_ID = #{wordId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_WORD
+    where WORD_ID = #{wordId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zbzl.entity.SysWord" >
+    insert into SYS_WORD (WORD_ID, WORD_CODE, WORD_NAME, 
+      WORD_CLASSIFY, WORD_LABEL, WORD_TIME, 
+      WORD_HERF, REMARK, WORD_ORG, 
+      WORD_USER, WORD_MJ,WORD_STAT,WORD_END,WORD_CLASSIFYNAME,WORD_LABELNAME)
+    values (#{wordId,jdbcType=VARCHAR}, #{wordCode,jdbcType=VARCHAR}, #{wordName,jdbcType=VARCHAR}, 
+      #{wordClassify,jdbcType=VARCHAR}, #{wordLabel,jdbcType=VARCHAR}, #{wordTime,jdbcType=VARCHAR}, 
+      #{wordHerf,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{wordOrg,jdbcType=VARCHAR}, 
+      #{wordUser,jdbcType=VARCHAR}, #{wordMj,jdbcType=VARCHAR},#{wordStat,jdbcType=VARCHAR},#{wordEnd,jdbcType=VARCHAR},
+      #{wordClassifyName,jdbcType=VARCHAR}, #{wordLabelName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zbzl.entity.SysWord" >
+    insert into SYS_WORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wordId != null" >
+        WORD_ID,
+      </if>
+      <if test="wordCode != null" >
+        WORD_CODE,
+      </if>
+      <if test="wordName != null" >
+        WORD_NAME,
+      </if>
+      <if test="wordClassify != null" >
+        WORD_CLASSIFY,
+      </if>
+      <if test="wordLabel != null" >
+        WORD_LABEL,
+      </if>
+      <if test="wordTime != null" >
+        WORD_TIME,
+      </if>
+      <if test="wordHerf != null" >
+        WORD_HERF,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="wordOrg != null" >
+        WORD_ORG,
+      </if>
+      <if test="wordUser != null" >
+        WORD_USER,
+      </if>
+      <if test="wordMj != null" >
+        WORD_MJ,
+      </if>
+      <if test="wordStat != null" >
+        WORD_STAT,
+      </if>
+      <if test="wordEnd != null" >
+        WORD_END,
+      </if>
+      <if test="wordClassifyName != null" >
+        WORD_CLASSIFYNAME,
+      </if>
+      <if test="wordLabelName != null" >
+        WORD_LABELNAME,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wordId != null" >
+        #{wordId,jdbcType=VARCHAR},
+      </if>
+      <if test="wordCode != null" >
+        #{wordCode,jdbcType=VARCHAR},
+      </if>
+      <if test="wordName != null" >
+        #{wordName,jdbcType=VARCHAR},
+      </if>
+      <if test="wordClassify != null" >
+        #{wordClassify,jdbcType=VARCHAR},
+      </if>
+      <if test="wordLabel != null" >
+        #{wordLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="wordTime != null" >
+        #{wordTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wordHerf != null" >
+        #{wordHerf,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="wordOrg != null" >
+        #{wordOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="wordUser != null" >
+        #{wordUser,jdbcType=VARCHAR},
+      </if>
+      <if test="wordMj != null" >
+        #{wordMj,jdbcType=VARCHAR},
+      </if>
+      <if test="wordStat != null" >
+        #{wordStat,jdbcType=VARCHAR},
+      </if>
+      <if test="wordEnd != null" >
+        #{wordEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="wordClassifyName != null" >
+        #{wordClassifyName,jdbcType=VARCHAR},
+      </if>
+      <if test="wordLabelName != null" >
+        #{wordLabelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zbzl.entity.SysWord" >
+    update SYS_WORD
+    <set >
+      <if test="wordCode != null" >
+        WORD_CODE = #{wordCode,jdbcType=VARCHAR},
+      </if>
+      <if test="wordName != null" >
+        WORD_NAME = #{wordName,jdbcType=VARCHAR},
+      </if>
+      <if test="wordClassify != null" >
+        WORD_CLASSIFY = #{wordClassify,jdbcType=VARCHAR},
+      </if>
+      <if test="wordLabel != null" >
+        WORD_LABEL = #{wordLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="wordTime != null" >
+        WORD_TIME = #{wordTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wordHerf != null" >
+        WORD_HERF = #{wordHerf,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="wordOrg != null" >
+        WORD_ORG = #{wordOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="wordUser != null" >
+        WORD_USER = #{wordUser,jdbcType=VARCHAR},
+      </if>
+      <if test="wordMj != null" >
+        WORD_MJ = #{wordMj,jdbcType=VARCHAR},
+      </if>
+      <if test="wordStat != null" >
+        WORD_STAT = #{wordStat,jdbcType=VARCHAR},
+      </if>
+      <if test="wordEnd != null" >
+        WORD_END = #{wordEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="wordClassifyName != null" >
+        #{wordClassifyName,jdbcType=VARCHAR},
+      </if>
+      <if test="wordLabelName != null" >
+        #{wordLabelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where WORD_ID = #{wordId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zbzl.entity.SysWord" >
+    update SYS_WORD
+    set
+     WORD_CODE = #{wordCode,jdbcType=VARCHAR},
+      WORD_NAME =  #{wordName,jdbcType=VARCHAR},
+      WORD_CLASSIFY = #{wordClassify,jdbcType=VARCHAR},
+      WORD_LABEL = #{wordLabel,jdbcType=VARCHAR},
+      WORD_TIME = #{wordTime,jdbcType=VARCHAR},
+      WORD_HERF = #{wordHerf,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      WORD_ORG = #{wordOrg,jdbcType=VARCHAR},
+      WORD_USER = #{wordUser,jdbcType=VARCHAR},
+      WORD_MJ = #{wordMj,jdbcType=VARCHAR},
+      WORD_STAT = #{wordStat,jdbcType=VARCHAR},
+      WORD_END = #{wordEnd,jdbcType=VARCHAR},
+      WORD_CLASSIFYNAME = #{wordClassifyName,jdbcType=VARCHAR},
+      WORD_LABELNAME = #{wordLabelName,jdbcType=VARCHAR}
+     where WORD_ID = #{wordId,jdbcType=VARCHAR}
+  </update>
+
+
+  <delete id="deleteMoreDistrict" parameterType="com.zbzl.entity.PageQuery">
+    DELETE FROM sys_word WHERE word_id IN ${exSql}
+  </delete>
+
+
+  <select id="selectByExample" parameterType="com.zbzl.entity.PageQuery" resultMap="BaseResultMap">
+    select * from(select C.*,ROWNUM RN FROM(
+    select
+    <include refid="Base_Column_List" />
+    from sys_word
+    where 1=1 ${exSql}) C WHERE ROWNUM &lt;= (#{page})*(#{row})) WHERE RN>(#{page}-1)*(#{row})
+  </select>
+  <select id="selectCountByExample" parameterType="com.zbzl.entity.PageQuery" resultType="java.lang.Integer">
+    select
+    count(0)
+    from sys_word
+    where 1=1 ${exSql}
+  </select>
+
+
+  <select id="getMaxId" resultType="java.lang.Integer">
+    select nvl(max(cast(word_id as INTEGER)),0) from sys_word
+  </select>
+
+
+</mapper>

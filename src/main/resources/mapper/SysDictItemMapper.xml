@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zbzl.dao.SysDictItemMapper" >
+  <resultMap id="BaseResultMap" type="com.zbzl.entity.SysDictItem" >
+    <id column="ITEM_ID" property="itemId" jdbcType="VARCHAR" />
+    <result column="ITEM_CODE" property="itemCode" jdbcType="VARCHAR" />
+    <result column="DICT_ID" property="dictId" jdbcType="VARCHAR" />
+    <result column="DICT_CODE" property="dictCode" jdbcType="VARCHAR" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="ITEM_VALID" property="itemValid" jdbcType="VARCHAR" />
+    <result column="ITEM_ENABLE" property="itemEnable" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ITEM_ID, ITEM_CODE, DICT_ID, DICT_CODE, ITEM_NAME, ITEM_VALID, ITEM_ENABLE, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_DICT_ITEM
+    where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_DICT_ITEM
+    where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zbzl.entity.SysDictItem" >
+    insert into SYS_DICT_ITEM (ITEM_ID, ITEM_CODE, DICT_ID, 
+      DICT_CODE, ITEM_NAME, ITEM_VALID, 
+      ITEM_ENABLE, REMARK)
+    values (#{itemId,jdbcType=VARCHAR}, #{itemCode,jdbcType=VARCHAR}, #{dictId,jdbcType=VARCHAR}, 
+      #{dictCode,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{itemValid,jdbcType=VARCHAR}, 
+      #{itemEnable,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zbzl.entity.SysDictItem" >
+    insert into SYS_DICT_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        ITEM_ID,
+      </if>
+      <if test="itemCode != null" >
+        ITEM_CODE,
+      </if>
+      <if test="dictId != null" >
+        DICT_ID,
+      </if>
+      <if test="dictCode != null" >
+        DICT_CODE,
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME,
+      </if>
+      <if test="itemValid != null" >
+        ITEM_VALID,
+      </if>
+      <if test="itemEnable != null" >
+        ITEM_ENABLE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCode != null" >
+        #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictId != null" >
+        #{dictId,jdbcType=VARCHAR},
+      </if>
+      <if test="dictCode != null" >
+        #{dictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemValid != null" >
+        #{itemValid,jdbcType=VARCHAR},
+      </if>
+      <if test="itemEnable != null" >
+        #{itemEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zbzl.entity.SysDictItem" >
+    update SYS_DICT_ITEM
+    <set >
+      <if test="itemCode != null" >
+        ITEM_CODE = #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictId != null" >
+        DICT_ID = #{dictId,jdbcType=VARCHAR},
+      </if>
+      <if test="dictCode != null" >
+        DICT_CODE = #{dictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemValid != null" >
+        ITEM_VALID = #{itemValid,jdbcType=VARCHAR},
+      </if>
+      <if test="itemEnable != null" >
+        ITEM_ENABLE = #{itemEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zbzl.entity.SysDictItem" >
+    update SYS_DICT_ITEM
+    set ITEM_CODE = #{itemCode,jdbcType=VARCHAR},
+      DICT_ID = #{dictId,jdbcType=VARCHAR},
+      DICT_CODE = #{dictCode,jdbcType=VARCHAR},
+      ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      ITEM_VALID = #{itemValid,jdbcType=VARCHAR},
+      ITEM_ENABLE = #{itemEnable,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </update>
+
+
+
+
+  <select id="selectByExample" parameterType="com.zbzl.entity.PageQuery" resultMap="BaseResultMap">
+    select * from(select C.*,ROWNUM RN FROM(
+    select
+    <include refid="Base_Column_List" />
+    from sys_dict_item
+    where 1=1 ${exSql}) C WHERE ROWNUM &lt;= (#{page})*(#{row})) WHERE RN>(#{page}-1)*(#{row})
+  </select>
+
+  <select id="selectCountByExample" parameterType="com.zbzl.entity.PageQuery" resultType="java.lang.Integer">
+    select
+    count(0)
+    from sys_dict_item
+    where 1=1 ${exSql}
+  </select>
+
+  <delete id="deleteMoreDistrict" parameterType="com.zbzl.entity.PageQuery">
+    DELETE FROM sys_dict_item WHERE item_id IN ${exSql}
+  </delete>
+
+
+
+
+  <select id="getMaxId" resultType="java.lang.Integer">
+    select nvl(max(cast(item_id as INTEGER)),0) from sys_dict_item
+  </select>
+
+  <select id="selectByDictId" parameterType="java.lang.String" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from
+    sys_dict_item
+    where dict_id = #{dictId,jdbcType=VARCHAR}
+
+  </select>
+
+  <delete id="deleteByDictId" parameterType="java.lang.String">
+    delete from sys_dict_item
+    where dict_id = #{dictId,jdbcType=VARCHAR}
+  </delete>
+
+
+  <select id="getByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select * from sys_dict_item where  dict_id = #{dictId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getDictItemById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from sys_dict_item where item_ID = #{itemId,jdbcType=VARCHAR}
+  </select>
+</mapper>

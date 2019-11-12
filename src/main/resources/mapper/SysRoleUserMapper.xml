@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zbzl.dao.SysRoleUserMapper" >
+  <resultMap id="BaseResultMap" type="com.zbzl.entity.SysRoleUser" >
+    <id column="ROLE_USER_ID" property="roleUserId" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_CODE" property="userCode" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_ORG" property="userOrg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_USER_ID, ROLE_ID, USER_ID, USER_CODE, USER_NAME, USER_ORG
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_ROLE_USER
+    where ROLE_USER_ID = #{roleUserId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_ROLE_USER
+    where ROLE_USER_ID = #{roleUserId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zbzl.entity.SysRoleUser" >
+    insert into SYS_ROLE_USER (ROLE_USER_ID, ROLE_ID, USER_ID, 
+      USER_CODE, USER_NAME, USER_ORG
+      )
+    values (#{roleUserId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userOrg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zbzl.entity.SysRoleUser" >
+    insert into SYS_ROLE_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleUserId != null" >
+        ROLE_USER_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userCode != null" >
+        USER_CODE,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userOrg != null" >
+        USER_ORG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleUserId != null" >
+        #{roleUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null" >
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrg != null" >
+        #{userOrg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zbzl.entity.SysRoleUser" >
+    update SYS_ROLE_USER
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null" >
+        USER_CODE = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrg != null" >
+        USER_ORG = #{userOrg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_USER_ID = #{roleUserId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zbzl.entity.SysRoleUser" >
+    update SYS_ROLE_USER
+    set ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      USER_CODE = #{userCode,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_ORG = #{userOrg,jdbcType=VARCHAR}
+    where ROLE_USER_ID = #{roleUserId,jdbcType=VARCHAR}
+  </update>
+
+
+  <delete id="deleteMoreDistrict" parameterType="com.zbzl.entity.PageQuery">
+    DELETE FROM sys_role_user WHERE role_user_id IN ${exSql}
+  </delete>
+
+
+  <select id="selectByExample" parameterType="com.zbzl.entity.PageQuery" resultMap="BaseResultMap">
+    select * from(select C.*,ROWNUM RN FROM(
+    select
+    <include refid="Base_Column_List" />
+    from sys_role_user
+    where 1=1 ${exSql}) C WHERE ROWNUM &lt;= (#{page})*(#{row})) WHERE RN>(#{page}-1)*(#{row})
+  </select>
+  <select id="selectCountByExample" parameterType="com.zbzl.entity.PageQuery" resultType="java.lang.Integer">
+    select
+    count(0)
+    from sys_role_user
+    where 1=1 ${exSql}
+  </select>
+
+
+  <select id="getMaxId" resultType="java.lang.Integer">
+    select nvl(max(cast(role_user_id as INTEGER)),0) from sys_role_user
+  </select>
+
+  <delete id="deleteByRoleId" parameterType="java.lang.String">
+    delete from sys_role_user
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="selectByRoleId" parameterType="java.lang.String" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from
+    sys_role_user
+    where role_id = #{roleId,jdbcType=VARCHAR}
+
+  </select>
+
+ <select id="getUserId" parameterType="com.zbzl.entity.SysRoleUser" resultMap="BaseResultMap">
+select *
+from sys_role_user
+where user_id=#{userId,jdbcType=VARCHAR}
+</select>
+ </mapper>

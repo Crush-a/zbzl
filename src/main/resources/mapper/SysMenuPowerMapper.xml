@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zbzl.dao.SysMenuPowerMapper" >
+  <resultMap id="BaseResultMap" type="com.zbzl.entity.SysMenuPower" >
+    <id column="MENU_POWER_ID" property="menuPowerId" jdbcType="VARCHAR" />
+    <result column="MENU_ID" property="menuId" jdbcType="VARCHAR" />
+    <result column="POWER_ID" property="powerId" jdbcType="VARCHAR" />
+    <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR" />
+    <result column="MENU_CODE" property="menuCode" jdbcType="VARCHAR" />
+    <result column="POWER_NAME" property="powerName" jdbcType="VARCHAR" />
+    <result column="POWER_CODE" property="powerCode" jdbcType="VARCHAR" />
+    <result column="MENU_POWER_VALID" property="menuPowerValid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MENU_POWER_ID, MENU_ID, POWER_ID, MENU_NAME, MENU_CODE, POWER_NAME, POWER_CODE, MENU_POWER_VALID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_MENU_POWER
+    where MENU_POWER_ID = #{menuPowerId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_MENU_POWER
+    where MENU_POWER_ID = #{menuPowerId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zbzl.entity.SysMenuPower" >
+    insert into SYS_MENU_POWER (MENU_POWER_ID, MENU_ID, POWER_ID, 
+      MENU_NAME, MENU_CODE, POWER_NAME, 
+      POWER_CODE, MENU_POWER_VALID)
+    values (#{menuPowerId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR}, #{powerId,jdbcType=VARCHAR}, 
+      #{menuName,jdbcType=VARCHAR}, #{menuCode,jdbcType=VARCHAR}, #{powerName,jdbcType=VARCHAR}, 
+      #{powerCode,jdbcType=VARCHAR}, #{menuPowerValid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zbzl.entity.SysMenuPower" >
+    insert into SYS_MENU_POWER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuPowerId != null" >
+        MENU_POWER_ID,
+      </if>
+      <if test="menuId != null" >
+        MENU_ID,
+      </if>
+      <if test="powerId != null" >
+        POWER_ID,
+      </if>
+      <if test="menuName != null" >
+        MENU_NAME,
+      </if>
+      <if test="menuCode != null" >
+        MENU_CODE,
+      </if>
+      <if test="powerName != null" >
+        POWER_NAME,
+      </if>
+      <if test="powerCode != null" >
+        POWER_CODE,
+      </if>
+      <if test="menuPowerValid != null" >
+        MENU_POWER_VALID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuPowerId != null" >
+        #{menuPowerId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="powerId != null" >
+        #{powerId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCode != null" >
+        #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="powerName != null" >
+        #{powerName,jdbcType=VARCHAR},
+      </if>
+      <if test="powerCode != null" >
+        #{powerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuPowerValid != null" >
+        #{menuPowerValid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zbzl.entity.SysMenuPower" >
+    update SYS_MENU_POWER
+    <set >
+      <if test="menuId != null" >
+        MENU_ID = #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="powerId != null" >
+        POWER_ID = #{powerId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCode != null" >
+        MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="powerName != null" >
+        POWER_NAME = #{powerName,jdbcType=VARCHAR},
+      </if>
+      <if test="powerCode != null" >
+        POWER_CODE = #{powerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuPowerValid != null" >
+        MENU_POWER_VALID = #{menuPowerValid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MENU_POWER_ID = #{menuPowerId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zbzl.entity.SysMenuPower" >
+    update SYS_MENU_POWER
+    set MENU_ID = #{menuId,jdbcType=VARCHAR},
+      POWER_ID = #{powerId,jdbcType=VARCHAR},
+      MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+      POWER_NAME = #{powerName,jdbcType=VARCHAR},
+      POWER_CODE = #{powerCode,jdbcType=VARCHAR},
+      MENU_POWER_VALID = #{menuPowerValid,jdbcType=VARCHAR}
+    where MENU_POWER_ID = #{menuPowerId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="getMenuPower" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu_power
+    where
+    power_id = #{powerId,jdbcType=VARCHAR}
+  </select>
+</mapper>

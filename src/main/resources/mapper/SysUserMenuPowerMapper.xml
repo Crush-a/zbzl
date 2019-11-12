@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zbzl.dao.SysUserMenuPowerMapper" >
+    <resultMap id="BaseResultMap" type="com.zbzl.entity.SysUserMenuPower" >
+        <id column="ROLE_MENU_POWER_ID" property="roleMenuPowerId" jdbcType="VARCHAR" />
+        <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+        <result column="MENU_POWER_ID" property="menuPowerId" jdbcType="VARCHAR" />
+        <result column="MENU_CODE" property="menuCode" jdbcType="VARCHAR" />
+        <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR" />
+        <result column="POWER_CODE" property="powerCode" jdbcType="VARCHAR" />
+        <result column="POWER_NAME" property="powerName" jdbcType="VARCHAR" />
+        <result column="MENU_POWER_VALID" property="menuPowerValid" jdbcType="VARCHAR" />
+        <result column="MENU_ID" property="menuId" jdbcType="VARCHAR" />
+        <result column="ICON" property="icon" jdbcType="VARCHAR" />
+        <result column="HREF" property="href" jdbcType="VARCHAR" />
+        <result column="PID" property="pid" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List">
+      ROLE_MENU_POWER_ID, ROLE_ID, MENU_POWER_ID, MENU_CODE, MENU_NAME, POWER_CODE, POWER_NAME, MENU_POWER_VALID,MENU_ID
+  </sql>
+
+<select id="getByBrowser" parameterType="java.util.List" resultMap="BaseResultMap">
+ SELECT *
+FROM sys_menu s,sys_role_menu_power a
+WHERE s.menu_name=a.menu_name and a.role_id=#{roleId,jdbcType=VARCHAR}
+</select>
+
+</mapper>
